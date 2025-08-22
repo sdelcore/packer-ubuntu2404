@@ -26,11 +26,6 @@ crash.log
 .idea/
 *.iml
 
-# Nix
-result
-result-*
-.direnv/
-
 # Build artifacts
 output-*
 builds/

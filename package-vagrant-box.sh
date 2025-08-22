@@ -57,8 +57,19 @@ echo "Disk size: ${DISK_SIZE_GB}GB"
 
 # Package the box
 echo -e "${YELLOW}Creating Vagrant box: $BOX_FILE${NC}"
+echo "This may take several minutes for compression..."
 cd "$TEMP_DIR"
-tar czf "$OLDPWD/$BOX_FILE" metadata.json Vagrantfile box.img
+
+# Use pigz for parallel compression if available, otherwise use gzip
+if command -v pigz >/dev/null 2>&1; then
+    echo "Using pigz for faster parallel compression..."
+    tar cf - metadata.json Vagrantfile box.img | pigz > "$OLDPWD/$BOX_FILE"
+else
+    echo "Using standard gzip compression (this will take longer)..."
+    # Use lower compression level for speed vs size tradeoff
+    tar czf "$OLDPWD/$BOX_FILE" --checkpoint=1000 --checkpoint-action=dot metadata.json Vagrantfile box.img
+    echo ""  # New line after dots
+fi
 cd "$OLDPWD"
 
 # Calculate box size

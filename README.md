@@ -12,15 +12,7 @@ This project automates the creation of Ubuntu 24.04 Desktop Vagrant boxes using 
 
 ## Prerequisites
 
-### Using Nix (Recommended)
-If you have Nix with flakes enabled, all dependencies are provided:
-```bash
-nix develop
-# or with direnv
-direnv allow
-```
-
-### Manual Installation
+Required tools:
 - Packer
 - QEMU/KVM
 - Vagrant with vagrant-libvirt plugin
@@ -74,8 +66,7 @@ vagrant ssh
 │   └── meta-data          # Cloud-init metadata
 ├── Vagrantfile            # Default box configuration
 ├── metadata.json          # Vagrant box metadata
-├── package-vagrant-box.sh # Packaging script
-└── flake.nix             # Nix development environment
+└── package-vagrant-box.sh # Packaging script
 ```
 
 ## Configuration Details
