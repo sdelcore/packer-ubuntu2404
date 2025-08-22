@@ -5,7 +5,6 @@ Vagrant.configure("2") do |config|
   # SSH configuration
   config.ssh.username = "vagrant"
   config.ssh.password = "vagrant"
-  config.ssh.insert_key = false
   
   # Libvirt provider settings
   config.vm.provider :libvirt do |libvirt|
@@ -23,21 +22,9 @@ Vagrant.configure("2") do |config|
                     :target_name => 'com.redhat.spice.0', 
                     :target_type => 'virtio'
     
-    # Enable shared clipboard
-    libvirt.channel :type => 'spicevmc',
-                    :target_name => 'org.spice-space.webdav.0',
-                    :target_type => 'virtio'
   end
-  
+
   # Synced folder using rsync (most compatible)
   config.vm.synced_folder ".", "/vagrant", type: "rsync"
   
-  # Optional: VirtualBox settings if converted later
-  config.vm.provider "virtualbox" do |vb|
-    vb.memory = "4096"
-    vb.cpus = 2
-    vb.gui = true
-    vb.customize ["modifyvm", :id, "--vram", "128"]
-    vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
-  end
 end
