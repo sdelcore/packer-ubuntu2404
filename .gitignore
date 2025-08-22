@@ -1,2 +1,48 @@
-
+# Packer
+output/
 output/**
+packer_cache/
+*.log
+crash.log
+.packer.d/
+
+# Vagrant
+.vagrant/
+*.box
+*.box.lock
+
+# ISO files
+*.iso
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Nix
+result
+result-*
+.direnv/
+
+# Build artifacts
+output-*
+builds/
+
+# SSH keys (except the insecure vagrant key which is public)
+*.pem
+*.key
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+
+# Local environment
+.env
+.envrc.local

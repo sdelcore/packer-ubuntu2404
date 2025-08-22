@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Package Ubuntu 24.04 QEMU VM as Vagrant Box
 # This script packages the Packer-built QEMU image into a Vagrant box format
@@ -51,7 +51,7 @@ cp metadata.json "$TEMP_DIR/"
 cp Vagrantfile "$TEMP_DIR/"
 
 # Get the actual disk size for info
-DISK_SIZE_BYTES=$(qemu-img info --output=json "$TEMP_DIR/box.img" | grep '"virtual-size"' | cut -d':' -f2 | cut -d',' -f1 | tr -d ' ')
+DISK_SIZE_BYTES=$(qemu-img info --output=json "$TEMP_DIR/box.img" | jq '.["virtual-size"]')
 DISK_SIZE_GB=$((DISK_SIZE_BYTES / 1024 / 1024 / 1024))
 echo "Disk size: ${DISK_SIZE_GB}GB"
 
